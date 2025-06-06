@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Perceive Anything: Recognize, Explain, Caption, and Segment Anything in Images and Videos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perceive Anything: Recognize, Explain, Caption, and Segment Anything in Images and Videos</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <link rel="icon" type="image/x-icon" href="static/images/logo.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/logo.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .easygreen { color: #009c4b; }
+    .middleyellow { color: #f25922; }
+    .hardred { color: #d8383a; }
+  </style>
+
+</head>
+<body>
+
+<!-- Paper Title and Author -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <span class='tiifbench'>Perceive Anything Model</span></h1>
+          <h2 class="subtitle is-3 has-text-centered">Recognize, Explain, Caption, and Segment Anything <br> in Images and Videos</h2> 
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Weifeng Lin</a><sup>*1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://a113n-w3i.github.io/">Xinyu Wei</a><sup>*2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Ruichuan An</a><sup>*2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Tianhe Ren</a><sup>*3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Tingwei Chen</a><sup>1</sup>,
+            </span>
+            
+            <span class="author-block">
+              <a href="">Renrui Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Ziyi Guo</a><sup>1</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="">Wentao Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Lei Zhang</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Hongsheng Li</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+            <span class="author-block" style="margin-right: 15px;"><sup>1</sup>The Chinese University of Hong Kong</span>
+            <span class="author-block" style="margin-left: 15px;"><sup>2</sup>Peking University</span>
+          </div>
+          <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+            <span class="author-block" style="margin-right: 15px;"><sup>3</sup>The University of Hong Kong</span>
+            <span class="author-block" style="margin-left: 15px;"><sup>4</sup>Hong Kong Polytechnic University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Arxiv Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                <a href="https://arxiv.org/abs/2506.05302"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Gradio Link.
+              <span class="link-block" style="margin-right: 15px;">
+                  <a href=""
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <img src="static/images/demo.svg" alt="Model" style="width: 20px; height: 20px;">
+                      </span>
+                      <span>Demo</span>
+                  </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                <a href="https://github.com/Perceive-Anything/PAM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                <a href="https://huggingface.co/Perceive-Anything/PAM-3B"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span>
+              <!-- Data Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Perceive-Anything/PAM-data"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>PAM-Data</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- three img caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px; margin-top: -50px;">
+  <div class="container" style="max-width: none;">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Image Caption
+        </h2>
+        
+        <!-- 应用缩放变换到整个div -->
+        <div style="transform:scale(1.0);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          <!-- 轮播Banner -->
+          <div class="carousel-container" style="margin-top: 20px; margin-bottom: 0px; display: flex; justify-content: center; width: 100%;">
+            <div id="image-caption-carousel" class="carousel" style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); height: 530px; width: 1400px;">
+              <!-- First Image -->
+              <div class="carousel-item">
+                <div class="content" style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                  <img src="static/images/image1.jpg" alt="Image Demo 1" style="width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
+              </div>
+              
+              <!-- Second Image -->
+              <div class="carousel-item">
+                <div class="content" style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                  <img src="static/images/image2.jpg" alt="Image Demo 2" style="width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
+              </div>
+              
+              <!-- Third Image -->
+              <div class="carousel-item">
+                <div class="content" style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                  <img src="static/images/image3.jpg" alt="Image Demo 3" style="width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- four video caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px; margin-top: 40px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Video Caption
+        </h2>
+        
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.8);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 三列布局：竖屏-横屏堆叠-竖屏 -->
+          <div class="columns is-centered">
+            <!-- First Vertical Video -->
+            <div class="column is-3">
+              <div class="content">
+                <div style="height: 400px; overflow: hidden;">
+                  <video src="static/videos/veritical-video1/vertical-video1-merged.mp4" alt="Vertical Video 1" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover; object-position: top;" controls autoplay muted loop>
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Middle Column: Two Horizontal Videos Stacked -->
+            <div class="column is-4">
+              <div class="content">
+                <!-- First Horizontal Video -->
+                <div style="margin-bottom: 50px;">
+                  <video src="static/videos/hori-video1/hori-video1-merged.mp4" alt="Horizontal Video 1" style="width: 100%; height: auto; border-radius: 2px;" controls autoplay muted loop>
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
+                <!-- Second Horizontal Video -->
+                <div>
+                  <video src="static/videos/hori-video2/hori-video2-merged.mp4" alt="Horizontal Video 2" style="width: 100%; height: auto; border-radius: 2px;" controls autoplay muted loop>
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Second Vertical Video -->
+            <div class="column is-3">
+              <div class="content">
+                <div style="height: 400px; overflow: hidden;">
+                  <video src="static/videos/vertical-video2/vertical-video2-merged.mp4" alt="Vertical Video 2" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover; object-position: top;" controls autoplay muted loop>
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- three video caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px; margin-top: 280px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.5);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 三列布局：竖屏-横屏堆叠-竖屏 -->
+          <div class="columns is-centered">
+            <div class="column is-4">
+              <div class="content">
+                <video src="static/videos/sam2-demo1/sam2-demo1-merged.mp4" alt="SAM2 Demo 1" style="width: 100%; height: auto; border-radius: 2px;" controls autoplay muted loop>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <!-- Second Horizontal Video -->
+            <div class="column is-4">
+              <div class="content">
+                <video src="static/videos/sam2-demo2/sam2-demo2-merged.mp4" alt="SAM2 Demo 2" style="width: 100%; height: auto; border-radius: 2px;" controls autoplay muted loop>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
+            <!-- Third Horizontal Video -->
+            <div class="column is-4">
+              <div class="content">
+                <video src="static/videos/sam2-demo3/sam2-demo3-merged.mp4" alt="SAM2 Demo 3" style="width: 100%; height: auto; border-radius: 2px;" controls autoplay muted loop>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- one streaming caption sample -->
+<section class="section" style="min-height: 300px; padding-bottom: 10px; margin-top: -80px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Streaming Caption
+        </h2>
+        
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.4);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 单个超宽横屏视频 -->
+          <div class="columns is-centered">
+            <div class="column is-10">
+              <div class="content">
+                <video src="static/videos/stream-demo/stream-caption.mp4" alt="Streaming Caption Demo" style="width: 100%; height: auto; border-radius: 4px;" controls autoplay muted loop>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Introduction -->
+<section class="section" style="margin-top: 170px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+          <b>Perceive Anything Model (PAM)</b> is a conceptually simple and efficient framework for comprehensive region-level visual understanding in images and videos. 
+          Our approach extends SAM 2 by integrating Large Language Models (LLMs), enabling simultaneous object segmentation with the generation of diverse, region-specific semantic outputs, including categories, label definition, functional explanations, and detailed captions. 
+          We propose to efficiently transform SAM 2's rich visual features, which inherently carry general vision, localization, and semantic priors into multi-modal tokens for LLM comprehension. 
+          To support robust multi-granularity understanding, we develop a dedicated data refinement and augmentation pipeline, yielding a high-quality dataset of image and video region-semantic annotations, including novel region-level streaming video caption data.
+          </p>
+          <p>
+            Experimental results demonstrate that PAM delivers robust performance across a diverse range
+            of regional understanding tasks for both images and videos, while operating ⚡️1.2−2.4&times; faster and
+            consuming less GPU memory compared to prior models. We believe our model, dataset, and insights
+            will significantly advance research in this domain and broadly benefit the vision-language community.
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/pam-comp.jpg" alt="pam-pipeline" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footnote for Introduction -->
+<div class="container is-max-desktop" style="margin-top: -40px;">
+  <div class="columns is-centered">
+    <div class="column is-six-fifths">
+      <div class="content has-text-left">
+        <p style="font-size: 0.75em; color: #666; font-style: italic;">
+          Perceive Anything is also an abbreviation for Pallas Athena. 
+          In Homer's epics, Athena and her sacred owl are known for their piercing gaze, capable of perceiving all things in the world. 
+          Similarly, our PAM segments every object in any visual medium and simultaneously outputs its semantic meaning.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PAM -->
+<section class="section" style="margin-top: 40px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-12">
+        <h2 class="title is-3"><img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <span class='tiifbench'>Perceive Anything Model</span></h2>
+        <div class="content has-text-justified">
+          <p>
+            Given visual prompts such as points, boxes, or masks to specify a region of interest, <b>Perceive Anything Model (PAM)</b> can simultaneously:
+          </p>
+          <p>
+            <i>(1) Segment:</i> Generate precise segmentation masks for the indicated region within an image or throughout a video.
+          </p>
+          <p>
+            <i>(2) Recognize:</i> Identify the category of the designated region or object.
+          </p>
+          <p>
+            <i>(3) Explain:</i> Provide clear explanations of the region's or object's definition, attributes, and functionality within its given context.
+          </p>
+          <p>
+            <i>(4) Caption:</i> Generate concise or detailed captions for the region within images, videos, and video streams.
+          </p>
+
+          <div class="has-text-centered" style="margin: 30px 0; margin-bottom: -50px;">
+            <img src="static/images/pam-pipeline.jpg" alt="pam-pipeline" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experiments -->
+<section class="section" style="margin-top: 40px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-12">
+        <h2 class="title is-3">Experiments</h2>
+        <div class="content has-text-justified">
+          <h4 class="title is-4">Image Benchmarks</h4>
+
+          <div class="has-text-centered" style="margin: 30px 0; margin-bottom: -20px;">
+            <img src="static/images/table1.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <div class="has-text-centered" style="margin: 30px 0; margin-bottom: 30px;">
+            <img src="static/images/table2.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+          <h4 class="title is-4">Video Benchmarks</h4>
+
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/table3.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p>
+             PAM also demonstrates superior inference efficiency and requires less GPU memory for both image and video processing, highlighting its suitability for efficient deployment in real-world applications:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/efficiency.png" alt="experiments" style="max-width: 80%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" style="margin-top: -10px;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @misc{lin2025perceiveanythingrecognizeexplain,
+            title={Perceive Anything: Recognize, Explain, Caption, and Segment Anything in Images and Videos}, 
+            author={Weifeng Lin and Xinyu Wei and Ruichuan An and Tianhe Ren and Tingwei Chen and Renrui Zhang and Ziyu Guo and Wentao Zhang and Lei Zhang and Hongsheng Li},
+            year={2025},
+            eprint={2506.05302},
+            archivePrefix={arXiv},
+            primaryClass={cs.CV},
+            url={https://arxiv.org/abs/2506.05302}, 
+      }
+    </code></pre>
+  </div>
+</section>
+
+
+<!-- Affiliation -->
+<section class="section" style="margin-top: 0px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <div class="content">
+          <!-- 第一排图片 -->
+          <div class="columns is-centered is-mobile" style="margin-bottom: 30px; align-items: center;">
+            <div class="column is-narrow" style="padding: 10px 20px;">
+              <img src="static/images/cuhk.png" alt="cuhk" style="height: 110px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/pku.png" alt="pku" style="height: 75px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/hku.jpg" alt="hku" style="height: 110px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/polyu.png" alt="polyu" style="height: 110px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+<script>
+	bulmaCarousel.attach('#results-carousel', {
+		slidesToScroll: 1,
+		slidesToShow: 1,
+        autoplay: true, 
+        autoplaySpeed: 3000,
+        loop: true
+	});
+	
+	// Initialize image caption carousel
+	bulmaCarousel.attach('#image-caption-carousel', {
+		slidesToScroll: 1,
+		slidesToShow: 1,
+        autoplay: true, 
+        autoplaySpeed: 4000,
+        loop: true,
+        infinite: true
+	});
+</script>
+
+</body>
+</html>
